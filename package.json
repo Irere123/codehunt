@@ -1,0 +1,13 @@
+{
+  "name": "codehunt",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "pnpm -r --filter='./**/*' run build",
+    "dev": "pnpm -r --parallel --filter='./**/*' run dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
