@@ -1,6 +1,6 @@
 ## Highlight Gallery
 
-Share what you done with your community and give them a highlight!
+Share what you have in the community and give them a highlight!
 
 Built with:
 
