@@ -13,4 +13,22 @@ defmodule Graphql.Resolver.UserResolver do
     user = from(u in User, where: u.id == ^id) |> Repo.one()
     {:ok, user}
   end
+
+  def register(
+        %{data: data},
+        _info
+      ) do
+    hashed_password = Argon2.hash_pwd_salt(data.password)
+
+    %User{
+      display_name: data.display_name,
+      username: data.username,
+      password: hashed_password,
+      bio: data.bio
+    }
+    |> User.changeset()
+    |> Repo.insert()
+
+    {:ok, %{ok: true}}
+  end
 end

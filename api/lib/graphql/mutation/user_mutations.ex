@@ -2,11 +2,11 @@ defmodule Graphql.Mutation.UserMutations do
   use Api.Graphql, :mutation
 
   object :user_mutations do
-    @desc "Create a post"
-    field :create_post, type: :user do
-      arg(:title, non_null(:string))
+    @desc "Register a new user account"
+    field :register, type: :register_response do
+      arg(:data, non_null(:register_input))
 
-      resolve(&Graphql.Resolver.PostResolver.find_all/2)
+      resolve(&Graphql.Resolver.UserResolver.register/2)
     end
   end
 end

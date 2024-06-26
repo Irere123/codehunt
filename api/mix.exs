@@ -50,6 +50,7 @@ defmodule Api.MixProject do
       {:absinthe_plug, "~> 1.5"},
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.1.1"},
+      {:argon2_elixir, "~> 4.0"},
       {:bandit, "~> 1.2"}
     ]
   end
