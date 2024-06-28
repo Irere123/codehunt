@@ -12,6 +12,7 @@ defmodule Models.Project do
     field(:name, :string)
     field(:description, :string)
     field(:website, :string)
+    field(:featured, :boolean)
     field(:github_repo_url, :string)
 
     belongs_to(:user, User, foreign_key: :user_id, type: :binary_id)
