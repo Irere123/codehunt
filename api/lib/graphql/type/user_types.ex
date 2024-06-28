@@ -12,10 +12,10 @@ defmodule Graphql.Type.UserType do
     field :bio, :string
   end
 
-  object :register_response do
+  object :auth_response do
     field :ok, non_null(:boolean)
-    field :accessToken, :string
-    field :refreshToken, :string
+    field :access_token, :string
+    field :refresh_token, :string
     field :errors, :auth_error
   end
 
@@ -26,8 +26,14 @@ defmodule Graphql.Type.UserType do
 
   input_object :register_input do
     field :username, non_null(:string)
+    field :email, non_null(:string)
     field :password, non_null(:string)
     field :display_name, non_null(:string)
     field :bio, non_null(:string)
+  end
+
+  input_object :login_input do
+    field :email, non_null(:string)
+    field :password, non_null(:string)
   end
 end
