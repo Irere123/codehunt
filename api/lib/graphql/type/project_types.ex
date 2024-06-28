@@ -7,5 +7,6 @@ defmodule Graphql.Type.ProjectTypes do
     field :description, non_null(:string)
     field :website, :string
     field :github_repo_url, :string
+    field :featured, :boolean
   end
 end

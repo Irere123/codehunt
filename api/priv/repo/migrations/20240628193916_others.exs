@@ -8,8 +8,9 @@ defmodule Api.Repo.Migrations.Others do
       add(:description, :text, null: false)
       add(:picture, :text, null: true)
       add(:website, :text, null: true)
-      add(:feautured, :boolean, default: false)
+      add(:featured, :boolean, default: false)
       add(:github_repo_url, :text, null: true)
+      add(:banner_url, :text, null: true)
 
       add(:user_id, references(:users, on_delete: :delete_all, type: :uuid), null: false)
 
