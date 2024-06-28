@@ -5,7 +5,7 @@ defmodule Graphql.Resolver.UserResolver do
   import Ecto.Query
 
   def all(_args, _info) do
-    users = from(u in User) |> Repo.all()
+    users = if Mix.env() == :dev, do: from(u in User) |> Repo.all(), else: []
     {:ok, users}
   end
 
