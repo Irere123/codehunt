@@ -6,7 +6,7 @@ Built with:
 
 - Elixir
 - GraphQL
-- Next.js
+- React.js
 
 ## Quickstart
 
