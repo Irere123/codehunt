@@ -32,7 +32,7 @@ export default function Navbar() {
             <SparklesIcon className="h-4 w-4" />
             <p className="text-sm ml-2">{23}</p>
           </a>
-          <Button>Submit</Button>
+          <Button>Sign in</Button>
         </div>
       </div>
     </div>
