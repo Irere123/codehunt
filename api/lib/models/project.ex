@@ -20,8 +20,14 @@ defmodule Models.Project do
     timestamps(type: :utc_datetime_usec)
   end
 
-  def changeset(user, attrs \\ %{}) do
-    user
+  def changeset(project, attrs \\ %{}) do
+    project
+    |> cast(attrs, [:name, :picture, :description])
+    |> validate_required([:description, :name, :picture])
+  end
+
+  def edit_changeset(project, attrs \\ %{}) do
+    project
     |> cast(attrs, [:name, :picture, :description])
     |> validate_required([:description, :name, :picture])
   end

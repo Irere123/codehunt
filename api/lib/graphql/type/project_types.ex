@@ -31,6 +31,7 @@ defmodule Graphql.Type.ProjectTypes do
     field :name, non_null(:string)
     field :description, non_null(:string)
     field :website, :string
+    field :picture, :string
     field :github_repo_url, :string
   end
 end

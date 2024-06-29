@@ -22,9 +22,9 @@ defmodule ApiWeb.Router do
       forward "/graphiql", Absinthe.Plug.GraphiQL,
         schema: Api.Graphql.Schema,
         interface: :playground
-    else
-      forward "/graphql", Absinthe.Plug, schema: Api.Graphql.Schema
     end
+
+    forward "/graphql", Absinthe.Plug, schema: Api.Graphql.Schema
   end
 
   scope "/api", ApiWeb do
