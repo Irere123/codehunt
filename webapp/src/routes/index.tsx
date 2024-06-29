@@ -1,5 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
+import Navbar from "../components/navbar";
 
 export const Route = createFileRoute("/")({
-  component: () => <div>Hello /!</div>,
+  component: () => <IndexComponent />,
 });
+
+function IndexComponent() {
+  return (
+    <main>
+      <Navbar />
+    </main>
+  );
+}
