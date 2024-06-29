@@ -44,6 +44,8 @@ defmodule Api.MixProject do
       {:swoosh, "~> 1.5"},
       {:finch, "~> 0.13"},
       {:absinthe, "~> 1.7"},
+      {:phoenix_pubsub, "~> 2.0"},
+      {:absinthe_phoenix, "~> 2.0"},
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},
       {:gettext, "~> 0.20"},

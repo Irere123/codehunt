@@ -1,8 +1,9 @@
 defmodule Utils.AccessToken do
   @signing_salt "iurgyfryhirh"
 
-  # token for 1hr
-  @token_age_secs 60 * 60
+  # TODO: make the lifetime of access token short
+  # token for 4 weeks
+  @token_age_secs 4 * 60_4800
 
   def sign(data) do
     Phoenix.Token.sign(ApiWeb.Endpoint, @signing_salt, data)
