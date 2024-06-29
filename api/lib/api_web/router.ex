@@ -12,6 +12,7 @@ defmodule ApiWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug Graphql.Context
   end
 
   scope "/" do
@@ -27,8 +28,8 @@ defmodule ApiWeb.Router do
   end
 
   scope "/api", ApiWeb do
-     pipe_through :api
-   end
+    pipe_through :api
+  end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
   if Application.compile_env(:api, :dev_routes) do

@@ -22,4 +22,23 @@ defmodule Graphql.Resolver.ProjectResolver do
 
     {:ok, project}
   end
+
+  def create(%{data: data}, %{context: %{user_id: user_id}}) do
+    case user_id do
+      nil ->
+        {:ok, %{ok: false, errors: %{field: "AUTH", message: "NOT AUTHORIZED"}}}
+
+      _ ->
+        project = %Project{
+          description: data.description,
+          name: data.name,
+          picture: data.picture,
+          github_repo_url: data.github_repo_url,
+          website: data.website,
+          banner_url: user_id
+        }
+
+        {:ok, %{ok: true, project: project}}
+    end
+  end
 end

@@ -22,7 +22,7 @@ defmodule Models.Project do
 
   def changeset(user, attrs \\ %{}) do
     user
-    |> cast(attrs, [:banner_url, :name, :picture])
+    |> cast(attrs, [:name, :picture, :description])
     |> validate_required([:description, :name, :picture])
   end
 end

@@ -1,5 +1,5 @@
 defmodule Utils.AccessToken do
-  @signing_salt "octosell_api_access"
+  @signing_salt "iurgyfryhirh"
 
   # token for 1hr
   @token_age_secs 60 * 60
@@ -9,7 +9,7 @@ defmodule Utils.AccessToken do
   end
 
   def verify(token) do
-    case Phoenix.Token.verify(MyAppWeb.Endpoint, @signing_salt, token, max_age: @token_age_secs) do
+    case Phoenix.Token.verify(ApiWeb.Endpoint, @signing_salt, token, max_age: @token_age_secs) do
       {:ok, data} -> {:ok, data}
       _error -> {:error, :unauthenticated}
     end

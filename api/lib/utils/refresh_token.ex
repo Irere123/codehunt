@@ -1,5 +1,5 @@
 defmodule Utils.RefreshToken do
-  @signing_salt "octosell_api_refresh"
+  @signing_salt "iruerhgerigtehgoerijo"
 
   # token for 4 week
   @token_age_secs 4 * 60_4800
@@ -9,7 +9,7 @@ defmodule Utils.RefreshToken do
   end
 
   def verify(token) do
-    case Phoenix.Token.verify(MyAppWeb.Endpoint, @signing_salt, token, max_age: @token_age_secs) do
+    case Phoenix.Token.verify(ApiWeb.Endpoint, @signing_salt, token, max_age: @token_age_secs) do
       {:ok, data} -> {:ok, data}
       _error -> {:error, :unauthenticated}
     end
