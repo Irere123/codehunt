@@ -11,9 +11,15 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as WhyBuildThisImport } from './routes/why-build-this'
 import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
+
+const WhyBuildThisRoute = WhyBuildThisImport.update({
+  path: '/why-build-this',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const IndexRoute = IndexImport.update({
   path: '/',
@@ -31,12 +37,22 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/why-build-this': {
+      id: '/why-build-this'
+      path: '/why-build-this'
+      fullPath: '/why-build-this'
+      preLoaderRoute: typeof WhyBuildThisImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
 // Create and export the route tree
 
-export const routeTree = rootRoute.addChildren({ IndexRoute })
+export const routeTree = rootRoute.addChildren({
+  IndexRoute,
+  WhyBuildThisRoute,
+})
 
 /* prettier-ignore-end */
 
@@ -46,11 +62,15 @@ export const routeTree = rootRoute.addChildren({ IndexRoute })
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/"
+        "/",
+        "/why-build-this"
       ]
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/why-build-this": {
+      "filePath": "why-build-this.tsx"
     }
   }
 }

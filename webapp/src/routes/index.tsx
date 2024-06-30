@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { MainLayout } from "../components/layouts/MainLayout";
 import { BookOpenIcon } from "../components/icons";
+import { FeaturedProjectsGrid } from "../components/projects/featured-grid";
 
 export const Route = createFileRoute("/")({
   component: () => <IndexComponent />,
@@ -32,10 +33,21 @@ function IndexComponent() {
         >
           A plaform to showcase your projects on the internet.
         </p>
-        <div
-          className="mx-auto mt-6 flex animate-fade-up items-center justify-center space-x-5 opacity-0"
-          style={{ animationDelay: "0.3s", animationFillMode: "forwards" }}
-        ></div>
+      </div>
+      <div
+        className="animate-fade-up opacity-0"
+        style={{ animationDelay: "0.35s", animationFillMode: "forwards" }}
+      >
+        <div className="mx-5 md:mx-0">
+          <div className="grid gap-4 border-b border-gray-200 pb-3">
+            <h2 className="text-2xl font-medium">Featured</h2>
+            <FeaturedProjectsGrid />
+          </div>
+          <div className="grid gap-4 mt-4">
+            <h2 className="text-2xl">All projects</h2>
+            <FeaturedProjectsGrid />
+          </div>
+        </div>
       </div>
     </MainLayout>
   );

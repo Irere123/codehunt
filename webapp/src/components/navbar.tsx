@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 
 import { useScroll } from "../hooks/use-scroll";
 import { Button, buttonVariants } from "./ui/button";
@@ -7,6 +7,7 @@ import { SparklesIcon } from "./icons";
 
 export default function Navbar() {
   const scrolled = useScroll(50);
+  const navigate = useNavigate();
 
   return (
     <div
@@ -32,7 +33,7 @@ export default function Navbar() {
             <SparklesIcon className="h-4 w-4" />
             <p className="text-sm ml-2">{23}</p>
           </a>
-          <Button>Sign in</Button>
+          <Button onClick={() => navigate({ to: "/" })}>Sign in</Button>
         </div>
       </div>
     </div>
