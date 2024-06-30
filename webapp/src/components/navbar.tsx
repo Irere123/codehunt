@@ -33,7 +33,7 @@ export default function Navbar() {
             <SparklesIcon className="h-4 w-4" />
             <p className="text-sm ml-2">{23}</p>
           </a>
-          <Button onClick={() => navigate({ to: "/" })}>Sign in</Button>
+          <Button onClick={() => navigate({ to: "/login" })}>Sign in</Button>
         </div>
       </div>
     </div>
