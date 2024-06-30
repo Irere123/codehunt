@@ -1,37 +1,19 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { useMutation } from "urql";
 
 import AuthLayout from "../components/layouts/AuthLayout";
 import { Input } from "../components/ui/input";
 import { Button } from "../components/ui/button";
-import { graphql } from "../gql";
 
 export const Route = createFileRoute("/login")({
   component: () => <LoginComponent />,
 });
 
-const LoginMutation = graphql(`
-  mutation Login($email: String!, $password: String!) {
-    login(data: { email: $email, password: $password }) {
-      ok
-      errors {
-        field
-        message
-      }
-      accessToken
-      refreshToken
-    }
-  }
-`);
-
 function LoginComponent() {
   const [formData, setFormData] = useState({ email: "", password: "" });
-  const [, loginMutation] = useMutation(LoginMutation);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const data = loginMutation({ ...formData });
   };
 
   console.log(formData);
