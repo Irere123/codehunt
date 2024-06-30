@@ -1,27 +1,45 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
+import { useMutation } from "urql";
 
 import AuthLayout from "../components/layouts/AuthLayout";
 import { Input } from "../components/ui/input";
 import { Button } from "../components/ui/button";
+import { graphql } from "../gql";
 
 export const Route = createFileRoute("/login")({
   component: () => <LoginComponent />,
 });
 
+const LoginMutation = graphql(`
+  mutation Login($email: String!, $password: String!) {
+    login(data: { email: $email, password: $password }) {
+      ok
+      errors {
+        field
+        message
+      }
+      accessToken
+      refreshToken
+    }
+  }
+`);
+
 function LoginComponent() {
   const [formData, setFormData] = useState({ email: "", password: "" });
+  const [, loginMutation] = useMutation(LoginMutation);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const data = loginMutation({ ...formData });
   };
 
   console.log(formData);
 
   return (
     <AuthLayout>
-      <div className="flex w-full h-full  justify-center items-center">
-        <div className="">
+      <div className="flex w-full h-full flex-col justify-center items-center">
+        <div>
           <h2 className="text-2xl text-center">Sign in</h2>
           <p className="text-base font-light">
             Keep it all together and you will be fine
@@ -53,6 +71,12 @@ function LoginComponent() {
 
             <Button>Sign in</Button>
           </form>
+          <div className="flex gap-2 mt-4 justify-center">
+            <p className="text-gray-700">New to ReLaunch?</p>
+            <Link to="/register" className="text-sky-600">
+              Join now
+            </Link>
+          </div>
         </div>
       </div>
     </AuthLayout>

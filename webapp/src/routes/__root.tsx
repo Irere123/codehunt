@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Outlet, createRootRoute } from "@tanstack/react-router";
+import { Client, cacheExchange, fetchExchange } from "urql";
 
 const TanStackRouterDevtools =
   process.env.NODE_ENV === "production"
@@ -10,6 +11,11 @@ const TanStackRouterDevtools =
           default: res.TanStackRouterDevtools,
         }))
       );
+
+const client = new Client({
+  url: "http://localhost:4000/graphql",
+  exchanges: [cacheExchange, fetchExchange],
+});
 
 export const Route = createRootRoute({
   component: RootComponent,
