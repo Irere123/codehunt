@@ -13,7 +13,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-    "mutation Login($email: String!, $password: String!) {\n  login(data: {email: $email, password: $password}) {\n    ok\n    errors {\n      field\n      message\n    }\n    accessToken\n    refreshToken\n  }\n}": types.LoginDocument,
+    "\n  mutation Login($email: String!, $password: String!) {\n    login(data: { email: $email, password: $password }) {\n      ok\n      errors {\n        field\n        message\n      }\n      accessToken\n      refreshToken\n    }\n  }\n": types.LoginDocument,
 };
 
 /**
@@ -33,7 +33,7 @@ export function graphql(source: string): unknown;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "mutation Login($email: String!, $password: String!) {\n  login(data: {email: $email, password: $password}) {\n    ok\n    errors {\n      field\n      message\n    }\n    accessToken\n    refreshToken\n  }\n}"): (typeof documents)["mutation Login($email: String!, $password: String!) {\n  login(data: {email: $email, password: $password}) {\n    ok\n    errors {\n      field\n      message\n    }\n    accessToken\n    refreshToken\n  }\n}"];
+export function graphql(source: "\n  mutation Login($email: String!, $password: String!) {\n    login(data: { email: $email, password: $password }) {\n      ok\n      errors {\n        field\n        message\n      }\n      accessToken\n      refreshToken\n    }\n  }\n"): (typeof documents)["\n  mutation Login($email: String!, $password: String!) {\n    login(data: { email: $email, password: $password }) {\n      ok\n      errors {\n        field\n        message\n      }\n      accessToken\n      refreshToken\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

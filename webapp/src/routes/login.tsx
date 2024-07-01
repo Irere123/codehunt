@@ -1,9 +1,12 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { Form, Formik } from "formik";
 
 import AuthLayout from "../components/layouts/AuthLayout";
 import { Input } from "../components/ui/input";
 import { Button } from "../components/ui/button";
+import { graphql } from "../gql";
+import { useMutation } from "urql";
+import { useTokenStore } from "../stores/useTokenStore";
 
 export const Route = createFileRoute("/login")({
   component: () => <LoginComponent />,
@@ -14,7 +17,24 @@ interface InitialFormValues {
   password: string;
 }
 
+const LoginMutation = graphql(`
+  mutation Login($email: String!, $password: String!) {
+    login(data: { email: $email, password: $password }) {
+      ok
+      errors {
+        field
+        message
+      }
+      accessToken
+      refreshToken
+    }
+  }
+`);
+
 function LoginComponent() {
+  const [{ fetching }, login] = useMutation(LoginMutation);
+  const navigate = useNavigate();
+
   return (
     <AuthLayout>
       <div className="flex w-full h-full flex-col justify-center items-center">
@@ -25,12 +45,27 @@ function LoginComponent() {
           </p>
           <Formik<InitialFormValues>
             initialValues={{ password: "", email: "" }}
-            onSubmit={(values) => {
-              console.log(values);
+            onSubmit={async (values, { setFieldError }) => {
+              const { data } = await login({ ...values });
+
+              if (data.login.errors) {
+                setFieldError(
+                  data.login.errors.field,
+                  data.login.errors.message
+                );
+              } else {
+                useTokenStore
+                  .getState()
+                  .setTokens(data.login.accessToken, data.login.refreshToken);
+                navigate({ to: "/dashboard" });
+              }
             }}
           >
-            {({ handleChange, errors }) => (
-              <Form className="flex flex-col gap-4 mt-4">
+            {({ handleChange, errors, handleSubmit }) => (
+              <Form
+                className="flex flex-col gap-4 mt-4"
+                onSubmit={handleSubmit}
+              >
                 <Input
                   onChange={handleChange}
                   type="text"
@@ -38,9 +73,7 @@ function LoginComponent() {
                   autoComplete="off"
                   placeholder="Email address"
                 />
-                {errors.email && (
-                  <p className="text-fuchsia-400">{errors.email}</p>
-                )}
+                {errors.email && <p className="text-red-400">{errors.email}</p>}
                 <Input
                   onChange={handleChange}
                   type="password"
@@ -49,14 +82,16 @@ function LoginComponent() {
                   placeholder="Password"
                 />
                 {errors.password && (
-                  <p className="text-fuchsia-400">{errors.password}</p>
+                  <p className="text-red-400">{errors.password}</p>
                 )}
 
                 {/* <Link to="/forgot-password" className="text-sm">
                   Forgot password
                 </Link> */}
 
-                <Button type="submit">Sign in</Button>
+                <Button type="submit" disabled={fetching}>
+                  Sign in
+                </Button>
               </Form>
             )}
           </Formik>
