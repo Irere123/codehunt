@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { MainLayout } from "../components/layouts/MainLayout";
 import { BookOpenIcon } from "../components/icons";
 import { FeaturedProjectsGrid } from "../components/projects/featured-grid";
+import ProjectsGrid from "../components/projects/projects-grid";
 
 export const Route = createFileRoute("/")({
   component: () => <IndexComponent />,
@@ -39,13 +40,16 @@ function IndexComponent() {
         style={{ animationDelay: "0.35s", animationFillMode: "forwards" }}
       >
         <div className="mx-5 md:mx-0">
-          <div className="grid gap-4 border-b border-gray-200 pb-3">
+          <div className="grid gap-4">
             <h2 className="text-2xl font-medium">Featured</h2>
             <FeaturedProjectsGrid />
           </div>
-          <div className="grid gap-4 mt-4">
-            <h2 className="text-2xl">All projects</h2>
-            <FeaturedProjectsGrid />
+
+          <div className="mb-8 mt-12 border-t border-gray-200" />
+
+          <div className="grid gap-4">
+            <h2 className="font-display text-2xl">All Projects</h2>
+            <ProjectsGrid />
           </div>
         </div>
       </div>
