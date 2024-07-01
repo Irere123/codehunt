@@ -13,6 +13,7 @@ defmodule ApiWeb.Router do
   pipeline :api do
     plug :accepts, ["json"]
     plug Graphql.Context
+    plug CORSPlug
   end
 
   scope "/" do
