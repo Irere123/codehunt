@@ -27,8 +27,8 @@ defmodule Graphql.Resolver.UserResolver do
         display_name: data.display_name,
         username: data.username,
         password: hashed_password,
-        bio: data.bio,
-        email: data.email
+        email: data.email,
+        bio: ""
       }
       |> User.changeset()
       |> Repo.insert(returning: true)

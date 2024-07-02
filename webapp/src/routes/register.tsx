@@ -1,8 +1,11 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import AuthLayout from "../components/layouts/AuthLayout";
 import { Form, Formik } from "formik";
 import { Input } from "../components/ui/input";
 import { Button } from "../components/ui/button";
+import { graphql } from "../gql";
+import { useMutation } from "urql";
+import { useTokenStore } from "../stores/useTokenStore";
 
 export const Route = createFileRoute("/register")({
   component: () => <RegisterComponent />,
@@ -14,7 +17,36 @@ interface InitialFormValues {
   username: string;
 }
 
+const RegisterMutation = graphql(`
+  mutation Register(
+    $username: String!
+    $displayName: String!
+    $email: String!
+    $password: String!
+  ) {
+    register(
+      data: {
+        username: $username
+        displayName: $displayName
+        email: $email
+        password: $password
+      }
+    ) {
+      ok
+      errors {
+        field
+        message
+      }
+      refreshToken
+      accessToken
+    }
+  }
+`);
+
 function RegisterComponent() {
+  const [{ fetching }, register] = useMutation(RegisterMutation);
+  const navigate = useNavigate();
+
   return (
     <AuthLayout>
       <div className="flex w-full h-full flex-col justify-center items-center">
@@ -25,8 +57,26 @@ function RegisterComponent() {
           </p>
           <Formik<InitialFormValues>
             initialValues={{ password: "", email: "", username: "" }}
-            onSubmit={(values) => {
-              console.log(values);
+            onSubmit={async (values, { setFieldError }) => {
+              const { data } = await register({
+                ...values,
+                displayName: values.username.toUpperCase(),
+              });
+
+              if (data.register.errors) {
+                setFieldError(
+                  data.register.errors.field,
+                  data.register.errors.message
+                );
+              } else {
+                useTokenStore
+                  .getState()
+                  .setTokens(
+                    data.register.accessToken,
+                    data.register.refreshToken
+                  );
+                navigate({ to: "/dashboard" });
+              }
             }}
           >
             {({ handleChange, errors }) => (
@@ -62,7 +112,9 @@ function RegisterComponent() {
                   <p className="text-fuchsia-400">{errors.password}</p>
                 )}
 
-                <Button type="submit">Create account</Button>
+                <Button type="submit" disabled={fetching}>
+                  Create account
+                </Button>
               </Form>
             )}
           </Formik>

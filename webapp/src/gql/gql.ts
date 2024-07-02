@@ -14,6 +14,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  */
 const documents = {
     "\n  mutation Login($email: String!, $password: String!) {\n    login(data: { email: $email, password: $password }) {\n      ok\n      errors {\n        field\n        message\n      }\n      accessToken\n      refreshToken\n    }\n  }\n": types.LoginDocument,
+    "\n  mutation Register(\n    $username: String!\n    $displayName: String!\n    $email: String!\n    $password: String!\n  ) {\n    register(\n      data: {\n        username: $username\n        displayName: $displayName\n        email: $email\n        password: $password\n      }\n    ) {\n      ok\n      errors {\n        field\n        message\n      }\n      refreshToken\n      accessToken\n    }\n  }\n": types.RegisterDocument,
 };
 
 /**
@@ -34,6 +35,10 @@ export function graphql(source: string): unknown;
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  mutation Login($email: String!, $password: String!) {\n    login(data: { email: $email, password: $password }) {\n      ok\n      errors {\n        field\n        message\n      }\n      accessToken\n      refreshToken\n    }\n  }\n"): (typeof documents)["\n  mutation Login($email: String!, $password: String!) {\n    login(data: { email: $email, password: $password }) {\n      ok\n      errors {\n        field\n        message\n      }\n      accessToken\n      refreshToken\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation Register(\n    $username: String!\n    $displayName: String!\n    $email: String!\n    $password: String!\n  ) {\n    register(\n      data: {\n        username: $username\n        displayName: $displayName\n        email: $email\n        password: $password\n      }\n    ) {\n      ok\n      errors {\n        field\n        message\n      }\n      refreshToken\n      accessToken\n    }\n  }\n"): (typeof documents)["\n  mutation Register(\n    $username: String!\n    $displayName: String!\n    $email: String!\n    $password: String!\n  ) {\n    register(\n      data: {\n        username: $username\n        displayName: $displayName\n        email: $email\n        password: $password\n      }\n    ) {\n      ok\n      errors {\n        field\n        message\n      }\n      refreshToken\n      accessToken\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};
