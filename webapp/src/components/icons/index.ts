@@ -5,3 +5,4 @@ export { default as ThumbsUpIcon } from "./ThumbsUpIcon";
 export { default as ArrowUpIcon } from "./ArrowUpIcon";
 export { default as NoteBookIcon } from "./NoteBookIcon";
 export { default as ListOrderedIcon } from "./ListOrderedIcon";
+export { default as CloseIcon } from "./CloseIcon";
