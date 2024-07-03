@@ -72,17 +72,17 @@ function RegisterComponent() {
                 displayName: values.username.toUpperCase(),
               });
 
-              if (data.register.errors) {
+              if (data?.register?.errors) {
                 setFieldError(
-                  data.register.errors.field,
-                  data.register.errors.message
+                  data?.register?.errors?.field!,
+                  data?.register?.errors?.message!
                 );
               } else {
                 useTokenStore
                   .getState()
                   .setTokens(
-                    data.register.accessToken,
-                    data.register.refreshToken
+                    data?.register?.accessToken!,
+                    data?.register?.refreshToken!
                   );
                 navigate({ to: "/dashboard" });
               }

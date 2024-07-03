@@ -42,10 +42,10 @@ function ProfileComponent() {
   return (
     <MainLayout>
       <div className="flex flex-col gap-3 mt-4">
-        <p>{data.user.username}</p>
-        <p>{data.user.bio}</p>
-        <p>{data.user.insertedAt}</p>
-        {user?.id === data.user.id && (
+        <p>{data?.user?.username}</p>
+        <p>{data?.user?.bio}</p>
+        <p>{data?.user?.insertedAt}</p>
+        {user?.id === data?.user?.id && (
           <div>
             <Button
               type="button"

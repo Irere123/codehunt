@@ -28,8 +28,8 @@ export function FeaturedProjectsGrid() {
 
   return (
     <div className="flex flex-col gap-4 w-full">
-      {data.getFeaturedProjects.map((project: Project) => (
-        <FeaturedProjectCard project={project} />
+      {data?.getFeaturedProjects?.map((project: Project | null) => (
+        <FeaturedProjectCard key={project?.id} project={project!} />
       ))}
     </div>
   );

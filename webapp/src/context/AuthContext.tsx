@@ -41,7 +41,7 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
   return (
     <AuthContext.Provider
       value={{
-        user: data.me,
+        user: data?.me!,
       }}
     >
       {children}

@@ -34,8 +34,8 @@ export default function ProjectsGrid({ className }: { className?: string }) {
         className
       )}
     >
-      {data.getAllProjects.map((project: Project) => (
-        <ProjectCard project={project} />
+      {data?.getAllProjects?.map((project: Project | null) => (
+        <ProjectCard key={project?.id} project={project!} />
       ))}
     </div>
   );

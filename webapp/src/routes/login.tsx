@@ -56,15 +56,18 @@ function LoginComponent() {
             onSubmit={async (values, { setFieldError }) => {
               const { data } = await login({ ...values });
 
-              if (data.login.errors) {
+              if (data?.login?.errors) {
                 setFieldError(
-                  data.login.errors.field,
-                  data.login.errors.message
+                  data?.login?.errors?.field!,
+                  data?.login?.errors?.message!
                 );
               } else {
                 useTokenStore
                   .getState()
-                  .setTokens(data.login.accessToken, data.login.refreshToken);
+                  .setTokens(
+                    data?.login?.accessToken!,
+                    data?.login?.refreshToken!
+                  );
                 navigate({ to: "/dashboard" });
               }
             }}
