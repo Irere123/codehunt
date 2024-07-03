@@ -61,8 +61,12 @@ defmodule Graphql.Resolver.UserResolver do
   end
 
   def get_me(_, %{context: %{user_id: user_id}}) do
-    user = from(u in User, where: u.id == ^user_id) |> Repo.one()
-    {:ok, user}
+    if !is_nil(user_id) do
+      user = from(u in User, where: u.id == ^user_id) |> Repo.one()
+      {:ok, user}
+    else
+      {:ok, nil}
+    end
   end
 
   def get_me(_, _) do

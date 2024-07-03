@@ -18,6 +18,7 @@ import { Route as ForgotPasswordImport } from './routes/forgot-password'
 import { Route as DashboardImport } from './routes/dashboard'
 import { Route as IndexImport } from './routes/index'
 import { Route as ProfileUserIdImport } from './routes/profile.$userId'
+import { Route as PProjectIdImport } from './routes/p.$projectId'
 
 // Create/Update Routes
 
@@ -53,6 +54,11 @@ const IndexRoute = IndexImport.update({
 
 const ProfileUserIdRoute = ProfileUserIdImport.update({
   path: '/profile/$userId',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const PProjectIdRoute = PProjectIdImport.update({
+  path: '/p/$projectId',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -102,6 +108,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WhyBuildThisImport
       parentRoute: typeof rootRoute
     }
+    '/p/$projectId': {
+      id: '/p/$projectId'
+      path: '/p/$projectId'
+      fullPath: '/p/$projectId'
+      preLoaderRoute: typeof PProjectIdImport
+      parentRoute: typeof rootRoute
+    }
     '/profile/$userId': {
       id: '/profile/$userId'
       path: '/profile/$userId'
@@ -121,6 +134,7 @@ export const routeTree = rootRoute.addChildren({
   LoginRoute,
   RegisterRoute,
   WhyBuildThisRoute,
+  PProjectIdRoute,
   ProfileUserIdRoute,
 })
 
@@ -138,6 +152,7 @@ export const routeTree = rootRoute.addChildren({
         "/login",
         "/register",
         "/why-build-this",
+        "/p/$projectId",
         "/profile/$userId"
       ]
     },
@@ -158,6 +173,9 @@ export const routeTree = rootRoute.addChildren({
     },
     "/why-build-this": {
       "filePath": "why-build-this.tsx"
+    },
+    "/p/$projectId": {
+      "filePath": "p.$projectId.tsx"
     },
     "/profile/$userId": {
       "filePath": "profile.$userId.tsx"

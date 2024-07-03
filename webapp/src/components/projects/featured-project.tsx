@@ -11,11 +11,12 @@ interface Props {
 
 export function FeaturedProjectCard({ project }: Props) {
   return (
-    <Link className="overflow-hidden flex flex-col sm:flex-row items-center rounded-xl border border-gray-200 bg-white shadow-md transition-all hover:-translate-y-0.5 hover:shadow-xl">
-      <div className="px-3 pt-3">
-        <div className="h-14 w-14 rounded-full bg-slate-200" />
-      </div>
-      <div className="flex flex-col p-4 gap-3">
+    <Link
+      to="/p/$projectId"
+      params={{ projectId: project.id }}
+      className="overflow-hidden flex flex-col w-full sm:flex-row items-center rounded-md border border-gray-200 bg-white shadow-md transition-all hover:-translate-y-0.5 hover:shadow-xl"
+    >
+      <div className="flex flex-col p-4 gap-3 w-full">
         <div className="flex gap-2 items-center justify-between">
           {project.featured && (
             <div className="flex gap-2 items-center">
@@ -23,7 +24,7 @@ export function FeaturedProjectCard({ project }: Props) {
               <BadgeCheckIcon className="h-6 w-6 text-white" fill="#1c9bef" />
             </div>
           )}
-          <div>
+          <div className="flex justify-between">
             <div className={buttonLinkVariants({ variant: "secondary" })}>
               <ArrowUpIcon className="h-4 w-4" />
               <p>{nFormatter(23234, { full: true })}</p>

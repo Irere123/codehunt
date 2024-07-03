@@ -3,11 +3,15 @@ import { nFormatter } from "../../lib/nFormatter";
 import { Link } from "@tanstack/react-router";
 import { ArrowUpIcon, BadgeCheckIcon } from "../icons";
 import { buttonLinkVariants } from "../ui/button-link";
+import { Project } from "../../gql/graphql";
+import { useState } from "react";
 
-export default function ProjectCard() {
+export default function ProjectCard({ project }: { project: Project }) {
+  const [isError, setError] = useState(false);
   return (
     <Link
-      to={`/`}
+      to={`/p/$projectId`}
+      params={{ projectId: project.id }}
       className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-md transition-all hover:-translate-y-0.5 hover:shadow-xl"
     >
       <div
@@ -18,8 +22,15 @@ export default function ProjectCard() {
       />
       <div className="-mt-8 flex items-center justify-between px-2">
         <img
-          src={""}
-          alt={""}
+          onError={() => setError(true)}
+          src={
+            isError
+              ? `https://ui-avatars.com/api/${
+                  project.name ? `&name=${project.name}` : "&name"
+                }&rounded=true&background=000000&bold=true&color=FFFFFF`
+              : project.picture
+          }
+          alt={project.name}
           width={100}
           height={100}
           className="h-16 w-16 rounded-full bg-white p-2"
@@ -31,16 +42,12 @@ export default function ProjectCard() {
       </div>
       <div className="p-4">
         <div className="flex items-center space-x-1">
-          <h2 className="font-display text-xl font-semibold">
-            {"Hello world"}
-          </h2>
+          <h2 className="font-display text-xl font-semibold">{project.name}</h2>
 
           <BadgeCheckIcon className="h-6 w-6 text-white" fill="#1c9bef" />
         </div>
         <p className="mt-2 line-clamp-3 text-sm text-gray-500">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae
-          quisquam enim error ad officia laudantium aspernatur, provident ut
-          officiis nesciunt.
+          {project.description}
         </p>
       </div>
     </Link>
