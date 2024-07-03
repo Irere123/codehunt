@@ -1,11 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+
 import { DashboardLayout } from "../components/layouts/DashboardLayout";
-import { Button } from "../components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
 import { AreaChart, BarList, Card } from "@tremor/react";
 import { useAuthContext } from "../context/AuthContext";
 import { getAvatarFallback } from "../lib/utils";
 import { ListOrderedIcon } from "../components/icons";
+import { CreateProjectModal } from "../components/projects/create-project-modal";
 
 export const Route = createFileRoute("/dashboard")({
   component: () => <DashboardComponent />,
@@ -182,9 +183,7 @@ function DashboardComponent() {
     <DashboardLayout>
       <div className="flex flex-col gap-4 justify-start">
         <div className="flex justify-between items-center">
-          <Button type="button" variant={"outline"}>
-            Submit
-          </Button>
+          <CreateProjectModal />
           <div className="flex gap-3">
             <Link
               to={`/`}
