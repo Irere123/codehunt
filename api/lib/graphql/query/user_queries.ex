@@ -13,5 +13,10 @@ defmodule Graphql.Query.UserQueries do
       arg(:id, non_null(:id))
       resolve(&UserResolver.find/2)
     end
+
+    @desc "Get currently logged in user profile"
+    field :me, type: :user do
+      resolve(&UserResolver.get_me/2)
+    end
   end
 end

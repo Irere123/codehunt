@@ -13,7 +13,24 @@ defmodule ApiWeb.Router do
   pipeline :api do
     plug :accepts, ["json"]
     plug Graphql.Context
-    plug CORSPlug
+
+    plug CORSPlug,
+      headers: [
+        "Authorization",
+        "Content-Type",
+        "Accept",
+        "Origin",
+        "User-Agent",
+        "DNT",
+        "Cache-Control",
+        "X-Mx-ReqToken",
+        "Keep-Alive",
+        "X-Requested-With",
+        "If-Modified-Since",
+        "Bearer",
+        "X-Refresh-Token",
+        "X-Access-Token"
+      ]
   end
 
   scope "/" do

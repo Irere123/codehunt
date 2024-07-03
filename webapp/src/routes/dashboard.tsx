@@ -3,6 +3,8 @@ import { DashboardLayout } from "../components/layouts/DashboardLayout";
 import { Button } from "../components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
 import { AreaChart, BarList, Card } from "@tremor/react";
+import { useAuthContext } from "../context/AuthContext";
+import { getAvatarFallback } from "../lib/utils";
 
 export const Route = createFileRoute("/dashboard")({
   component: () => <DashboardComponent />,
@@ -173,6 +175,8 @@ const dataFormatter = (num: number) =>
   `$${Intl.NumberFormat("us").format(num).toString()}`;
 
 function DashboardComponent() {
+  const { user } = useAuthContext();
+
   return (
     <DashboardLayout>
       <div className="flex flex-col gap-4 justify-start">
@@ -183,8 +187,10 @@ function DashboardComponent() {
           <div>
             <Link to={`/profile/$userId`} params={{ userId: "379845348" }}>
               <Avatar>
-                <AvatarImage src="https://github.com/shadcn.png" />
-                <AvatarFallback>CN</AvatarFallback>
+                <AvatarImage src={user?.avatarUrl!} />
+                <AvatarFallback>
+                  {getAvatarFallback(user?.username)}
+                </AvatarFallback>
               </Avatar>
             </Link>
           </div>
