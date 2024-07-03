@@ -17,6 +17,7 @@ const documents = {
     "\n  query Projects {\n    getAllProjects {\n      bannerUrl\n      description\n      name\n      githubRepoUrl\n      name\n      website\n      id\n      picture\n      featured\n    }\n  }\n": types.ProjectsDocument,
     "\n  query WhoAmI {\n    me {\n      id\n      avatarUrl\n      bio\n      blog\n      displayName\n      email\n      username\n      website\n    }\n  }\n": types.WhoAmIDocument,
     "\n  mutation Login($email: String!, $password: String!) {\n    login(data: { email: $email, password: $password }) {\n      ok\n      errors {\n        field\n        message\n      }\n      accessToken\n      refreshToken\n    }\n  }\n": types.LoginDocument,
+    "\n  query GetProfile($id: ID!) {\n    user(id: $id) {\n      id\n      username\n      displayName\n      bio\n      blog\n      website\n      email\n      insertedAt\n      updatedAt\n    }\n  }\n": types.GetProfileDocument,
     "\n  mutation Register(\n    $username: String!\n    $displayName: String!\n    $email: String!\n    $password: String!\n  ) {\n    register(\n      data: {\n        username: $username\n        displayName: $displayName\n        email: $email\n        password: $password\n      }\n    ) {\n      ok\n      errors {\n        field\n        message\n      }\n      refreshToken\n      accessToken\n    }\n  }\n": types.RegisterDocument,
 };
 
@@ -50,6 +51,10 @@ export function graphql(source: "\n  query WhoAmI {\n    me {\n      id\n      a
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  mutation Login($email: String!, $password: String!) {\n    login(data: { email: $email, password: $password }) {\n      ok\n      errors {\n        field\n        message\n      }\n      accessToken\n      refreshToken\n    }\n  }\n"): (typeof documents)["\n  mutation Login($email: String!, $password: String!) {\n    login(data: { email: $email, password: $password }) {\n      ok\n      errors {\n        field\n        message\n      }\n      accessToken\n      refreshToken\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query GetProfile($id: ID!) {\n    user(id: $id) {\n      id\n      username\n      displayName\n      bio\n      blog\n      website\n      email\n      insertedAt\n      updatedAt\n    }\n  }\n"): (typeof documents)["\n  query GetProfile($id: ID!) {\n    user(id: $id) {\n      id\n      username\n      displayName\n      bio\n      blog\n      website\n      email\n      insertedAt\n      updatedAt\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

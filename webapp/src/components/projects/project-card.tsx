@@ -43,8 +43,9 @@ export default function ProjectCard({ project }: { project: Project }) {
       <div className="p-4">
         <div className="flex items-center space-x-1">
           <h2 className="font-display text-xl font-semibold">{project.name}</h2>
-
-          <BadgeCheckIcon className="h-6 w-6 text-white" fill="#1c9bef" />
+          {project.featured && (
+            <BadgeCheckIcon className="h-6 w-6 text-white" fill="#1c9bef" />
+          )}
         </div>
         <p className="mt-2 line-clamp-3 text-sm text-gray-500">
           {project.description}
