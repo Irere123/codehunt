@@ -6,6 +6,7 @@ import { Button } from "../components/ui/button";
 import { graphql } from "../gql";
 import { useMutation } from "urql";
 import { useTokenStore } from "../stores/useTokenStore";
+import { useEffect } from "react";
 
 export const Route = createFileRoute("/register")({
   component: () => <RegisterComponent />,
@@ -46,6 +47,14 @@ const RegisterMutation = graphql(`
 function RegisterComponent() {
   const [{ fetching }, register] = useMutation(RegisterMutation);
   const navigate = useNavigate();
+
+  const hasTokens = useTokenStore((s) => !!s.accessToken && !!s.refreshToken);
+
+  useEffect(() => {
+    if (hasTokens) {
+      navigate({ to: "/dashboard" });
+    }
+  }, [hasTokens]);
 
   return (
     <AuthLayout>
