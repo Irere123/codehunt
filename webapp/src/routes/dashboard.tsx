@@ -5,6 +5,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
 import { AreaChart, BarList, Card } from "@tremor/react";
 import { useAuthContext } from "../context/AuthContext";
 import { getAvatarFallback } from "../lib/utils";
+import { ListOrderedIcon } from "../components/icons";
 
 export const Route = createFileRoute("/dashboard")({
   component: () => <DashboardComponent />,
@@ -184,7 +185,13 @@ function DashboardComponent() {
           <Button type="button" variant={"outline"}>
             Submit
           </Button>
-          <div>
+          <div className="flex gap-3">
+            <Link
+              to={`/`}
+              className="flex justify-center items-center h-10 w-10 bg-muted rounded-full"
+            >
+              <ListOrderedIcon className="h-5 w-5" />
+            </Link>
             <Link to={`/profile/$userId`} params={{ userId: user?.id || "" }}>
               <Avatar>
                 <AvatarImage src={user?.avatarUrl!} />

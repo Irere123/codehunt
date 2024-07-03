@@ -3,7 +3,7 @@ import { Link, useNavigate } from "@tanstack/react-router";
 import { useScroll } from "../hooks/use-scroll";
 import { Button, buttonVariants } from "./ui/button";
 import { cn, getAvatarFallback } from "../lib/utils";
-import { SparklesIcon } from "./icons";
+import { NoteBookIcon, SparklesIcon } from "./icons";
 import { useAuthContext } from "../context/AuthContext";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
@@ -37,14 +37,22 @@ export default function Navbar() {
             <p className="text-sm ml-2">{23}</p>
           </a>
           {user ? (
-            <Link to={`/profile/$userId`} params={{ userId: user.id }}>
-              <Avatar>
-                <AvatarImage src={user?.avatarUrl!} />
-                <AvatarFallback>
-                  {getAvatarFallback(user?.username)}
-                </AvatarFallback>
-              </Avatar>
-            </Link>
+            <>
+              <Link
+                to={`/dashboard`}
+                className="flex justify-center items-center h-10 w-10 bg-muted rounded-full"
+              >
+                <NoteBookIcon className="h-5 w-5" />
+              </Link>
+              <Link to={`/profile/$userId`} params={{ userId: user.id }}>
+                <Avatar>
+                  <AvatarImage src={user?.avatarUrl!} />
+                  <AvatarFallback>
+                    {getAvatarFallback(user?.username)}
+                  </AvatarFallback>
+                </Avatar>
+              </Link>
+            </>
           ) : (
             <Button onClick={() => navigate({ to: "/login" })}>Sign in</Button>
           )}
