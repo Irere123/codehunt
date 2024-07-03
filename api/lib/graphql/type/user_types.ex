@@ -10,6 +10,8 @@ defmodule Graphql.Type.UserType do
     field :website, :string
     field :avatar_url, :string
     field :bio, :string
+    field :inserted_at, :string
+    field :updated_at, :string
   end
 
   object :auth_response do
