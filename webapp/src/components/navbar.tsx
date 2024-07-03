@@ -2,12 +2,15 @@ import { Link, useNavigate } from "@tanstack/react-router";
 
 import { useScroll } from "../hooks/use-scroll";
 import { Button, buttonVariants } from "./ui/button";
-import { cn } from "../lib/utils";
+import { cn, getAvatarFallback } from "../lib/utils";
 import { SparklesIcon } from "./icons";
+import { useAuthContext } from "../context/AuthContext";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 export default function Navbar() {
   const scrolled = useScroll(50);
   const navigate = useNavigate();
+  const { user } = useAuthContext();
 
   return (
     <div
@@ -33,7 +36,18 @@ export default function Navbar() {
             <SparklesIcon className="h-4 w-4" />
             <p className="text-sm ml-2">{23}</p>
           </a>
-          <Button onClick={() => navigate({ to: "/login" })}>Sign in</Button>
+          {user ? (
+            <Link to={`/profile/$userId`} params={{ userId: user.id }}>
+              <Avatar>
+                <AvatarImage src={user?.avatarUrl!} />
+                <AvatarFallback>
+                  {getAvatarFallback(user?.username)}
+                </AvatarFallback>
+              </Avatar>
+            </Link>
+          ) : (
+            <Button onClick={() => navigate({ to: "/login" })}>Sign in</Button>
+          )}
         </div>
       </div>
     </div>

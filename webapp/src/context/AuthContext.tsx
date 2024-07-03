@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React from "react";
 import { User } from "../gql/graphql";
 import { graphql } from "../gql";
 import { useQuery } from "urql";

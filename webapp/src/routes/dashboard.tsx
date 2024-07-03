@@ -185,7 +185,7 @@ function DashboardComponent() {
             Submit
           </Button>
           <div>
-            <Link to={`/profile/$userId`} params={{ userId: "379845348" }}>
+            <Link to={`/profile/$userId`} params={{ userId: user?.id || "" }}>
               <Avatar>
                 <AvatarImage src={user?.avatarUrl!} />
                 <AvatarFallback>
