@@ -18,7 +18,7 @@ export default function Navbar() {
       } z-30 transition-all`}
     >
       <div className="mx-5 flex h-16 w-full max-w-screen-md items-center justify-between">
-        <Link href="/">
+        <Link to="/">
           <img src="/logomark.svg" alt="ReLaunch logo" className="h-14" />
         </Link>
         <div className="flex items-center space-x-2">
